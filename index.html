@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.4.0/css/fixedHeader.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/4.3.0/css/fixedColumns.dataTables.min.css">
+
+    <link rel="stylesheet" href="/css/waybill.css" />
+    <title>Waybill booking report</title>
+</head>
+
+<body>
+    <nav class="waybill-navbar">
+        <div class="navbar-elements">
+            <div class="maven-logo"></div>
+            <div class="waybill-title">Bus System | Waybill Booking Report</div>
+        </div>
+        <div class="dropdown">
+            <div style="padding: 14px 0px 10px 10px;"><img src="/images/profile_icon.svg"></div>
+
+            <button class="dropbtn" onclick="myFunction()">Profile 
+              <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="myDropdown">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>
+        </div>
+    </nav>
+    <div class="date-wise-report">
+        <div class="form-group calender">
+            <input type="datetime" class="form-control" id="from_date" style="width: 195px;" autocomplete="off">
+            <label for="from_date" class="placeholder active-label">From Waybill Trip Start Date</label>
+        </div>
+        <div class="form-group calender">
+            <input type="datetime" class="form-control" id="to_date" style="width: 172px;" autocomplete="off">
+            <label for="to_date" class="placeholder active-label">To Waybill Trip Start Date</label>
+        </div>
+        <div class="form-group">
+            <select class="chosen" name="" id="report_options">
+                    <option value="Conductor">Conductor Wise</option>
+                    <option value="Bus">Bus Wise</option>
+                </select>
+            <label class="dropdown-label active-label">Report Options</label>
+        </div>
+        <div class="form-group">
+            <select class="chosen" name="" id="select_conductor" disabled>
+                    <option >All</option>
+                </select>
+            <label class="dropdown-label active-label">Select Conductor</label>
+        </div>
+        <div class="form-group">
+            <select class="chosen" name="" id="select_bus_no" disabled>
+                    <option>--select--</option>
+                </select>
+            <label class="dropdown-label active-label">Select Bus No.</label>
+        </div>
+        <button type="button" id="generate_btn" class="btn1 btn-orange" style="width: 110px;">GENERATE</button>
+        <img src="/images/rotate_icon.svg" class="rotate_icon">
+    </div>
+    <div class="Waybill_booking_table">
+        <div class="report_title">Report For : Conductor Wise Booking Report</div>
+        <table id="BusWiseReport" class="display nowrap">
+            <thead>
+                <tr>
+                    <th rowspan="2" class="table_border_right " style="width: 3%;">CRS ID</th>
+                    <th rowspan="2" class="table_border_right" style="width: 10%;">Conductor Name</th>
+                    <th rowspan="2" class="table_border_right " style="width: 10%;">Mutli Trip Service Name</th>
+                    <th colspan="2" class="table_center_align ">1-Jan-2023</th>
+                    <th colspan="2" class="table_center_align">2-Jan-2023</th>
+                    <th colspan="2" class="table_center_align">3-Jan-2023</th>
+                    <th colspan="2" class="table_center_align">4-Jan-2023</th>
+                    <th class=" table_center_align " colspan="2">5-Jan-2023</th>
+                    <th class=" table_center_align " colspan="2">6-Jan-2023</th>
+                    <th class=" table_center_align " colspan="2">7-Jan-2023</th>
+                    <th class=" table_center_align " colspan="2">8-Jan-2023</th>
+                    <th rowspan="2" class="table_center_align " style="width: 10%;">Total</th>
+                </tr>
+                <tr>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                    <th class="table_border_right blue-complex-header">Waybill no.</th>
+                    <th class="blue-complex-header">Amount</th>
+                </tr>
+            </thead>
+        </table>
+        <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 4px;">
+                <div><img src="/images/blue-ellipse.svg"></div>
+                <div>Waybill is Active</div>
+            </div>
+            <div style="display: flex; gap: 4px;">
+                <div><img src="/images/green-ellipse.svg"></div>
+                <div>Waybill is Submitted</div>
+            </div>
+            <div style="display: flex; gap: 4px;">
+                <div><img src="/images/red-ellipse.svg"></div>
+                <div>Waybill is not created</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="trip_details" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="waybill-content">
+                <div class="waybill-header">
+                    <h5 class="trip-title">Trip Details - WayBill No. <span class="waybill-text"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="waybill_trip_details">
+                    <table id="waybill_trip_details" class="display">
+                        <thead>
+                            <tr>
+                                <th>Route</th>
+                                <th>Service Name</th>
+                                <th>Trip Chart Date</th>
+                                <th>Trip Start Date</th>
+                                <th>Trip End Date</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div class="close-btn">
+                    <button type="button" id="close_btn" class="btn-orange" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="amount_details" role="dialog" aria-hidden="true">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="amount-content">
+                <div class="amount-header">
+                    <h5 class="amount-title">Amount Breakdown WayBill No.- <span class="amount-text"></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="amount_breakdown_details">
+                    <table id="amount_breakdown_details" class="display">
+                        <thead>
+                            <tr>
+                                <th>Booking Type</th>
+                                <th style="text-align: right;">Amount</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Totals</th>
+                                <th style="text-align: right;"></th>
+
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="close-btn">
+                    <button type="button" id="close_btn" class="btn-orange" data-dismiss="modal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <!-- <script type="text/javascript " src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js "></script> -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.1.0/chosen.jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.4.0/js/dataTables.fixedHeader.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedcolumns/4.3.0/js/dataTables.fixedColumns.min.js"></script>
+    <script src="/js/waybill.js "></script>
+
+</body>
+
+</html>
